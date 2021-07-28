@@ -3,27 +3,32 @@ import java.io.*;
 
 public class ParseTextAndCountApp {
 
+		public static void main(String[] args) throws FileNotFoundException  {
+
+			// Use hashmap to store the words
+			
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			
+			// Scanner to read the txt
 		
-			public void CountWords(String filename, Map< String, Integer> words) throws FileNotFoundException
-			{
-			Scanner file=new Scanner (new File(filename));
-			while(file.hasNext()){
-			String word=file.next();
-			Integer count=words.get(word);
-			if(count!=null)
-			count++;
-			else
-			count=1;
-			words.put(word,count);
+				Scanner txtFile = new Scanner(new File("transcript.txt"));
+				while (txtFile.hasNext()) {
+					String word = txtFile.next();
+			
+					if (map.containsKey(word)) {
+						int count=map.get(word) +1;
+						map.put(word, count);
+					} else {
+						map.put(word, 1);
+					}
+				} 
+				txtFile.close();
+				
+				for (Map.Entry<String, Integer> entry : map.entrySet()) {
+					System.out.println(entry);
+				}
 			}
-			file.close();
-			}
-			public static void main(String[] args)
-			{
-			Map<String,Integer> words=new HashMap<String, Integer>();
-			CountWords("transcript.txt",words);
-			System.out.println(words);
-			}
+
 			}
 			
 
